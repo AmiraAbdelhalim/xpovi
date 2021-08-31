@@ -10,7 +10,7 @@ class Question(models.Model):
     ]
     TYPE_LIST = [
         ('bool', 'boolean'),
-        ('choice', 'choice') ,
+        ('choice', 'choice'),
         ('num', 'number')
     ]
     question = models.CharField(max_length=255)
@@ -22,14 +22,21 @@ class Question(models.Model):
         return self.question
 
 
+class UserTrial(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_trial", null=True)
+    trial_num = models.IntegerField(null=True, unique=True)
+
+    def __str__(self):
+        return f'{self.trial_num}'
+
+
 class UserAnswer(models.Model):
     # FIXME when answer is a number validate number to be positive integer
     # FIXME models.PositiveIntegerField(default=0, validators=[MinValueValidator(0)], blank=True, null=True)
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name="question_answer")
     answer = models.CharField(max_length=50, blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_answer", null=True)
-    user_try_number = models.IntegerField(null=True)
+    trial = models.ForeignKey(UserTrial, on_delete=models.CASCADE, related_name="trial_number", null=True)
 
     def __str__(self):
         return self.answer
-
