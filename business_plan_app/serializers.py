@@ -1,7 +1,5 @@
 from rest_framework import serializers
-from django.contrib.auth.models import User
 from .models import *
-import re
 
 
 class QuestionSerializer(serializers.ModelSerializer):
@@ -22,14 +20,29 @@ class TrialSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class AnswerListSerializer(serializers.ListSerializer):
+    def update(self, instance, validated_data):
+        answer_mapping = {answer.id: answer for answer in instance}
+
+        data_mapping = {item['id']: item for item in validated_data}
+        ret = []
+        for answer_id, data in data_mapping.items():
+            answer = answer_mapping.get(answer_id)
+            if answer:
+                ret.append(self.child.update(answer, data))
+        return ret
+
+
 class AnswerSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField()
     question_answer = QuestionSerializer(many=True, required=False)
     trial_number = TrialSerializer(many=True, required=False)
 
     class Meta:
+        list_serializer_class = AnswerListSerializer
         model = UserAnswer
         fields = '__all__'
-        read_only_fields = ('id', 'question')
+        read_only_fields = ('id', 'question',)
 
     def create(self, validated_data):
         user = User.objects.get(id=self.context.get('user').id)

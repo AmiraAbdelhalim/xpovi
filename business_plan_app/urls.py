@@ -1,6 +1,7 @@
 from django.urls import path, include
 from .views import get_section1_questions, get_section2_questions,\
-    create_business_plan_submission, get_new_trial_number, get_current_trial_submitted_answers
+    create_business_plan_submission, get_new_trial_number, get_current_trial_submitted_answers, \
+    update_submission
 
 
 urlpatterns = [
@@ -9,5 +10,5 @@ urlpatterns = [
     path('trial', get_new_trial_number),
     path('submission/<int:trial_num>', create_business_plan_submission),
     path('answers/<int:trial_number>', get_current_trial_submitted_answers),
-
+    path('answers/update/<int:trial_num>', update_submission)
 ]

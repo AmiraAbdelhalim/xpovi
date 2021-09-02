@@ -78,8 +78,8 @@ def create_business_plan_submission(request, trial_num):
     """
     try:
         trial_exist = UserTrial.objects.get(trial_num=trial_num, user=request.user)
-    except Exception as e:
-        print('exception=> ', e)
+    except UserTrial.DoesNotExist:
+        print('exception occurred')
         trial_exist = []
     if trial_exist:
         data = {"response_id": "-1", "error": "trial already exist!"}
@@ -123,7 +123,6 @@ def get_new_trial_number(request):
 
 @permission_classes([IsAuthenticated])
 @api_view(['GET', ])
-# FIXME: find a way to display question instead of question number
 def get_current_trial_submitted_answers(request, trial_number):
     """
 
@@ -145,4 +144,42 @@ def get_current_trial_submitted_answers(request, trial_number):
         'data': answers_serializer.data
     }
     return Response(data, status=status.HTTP_200_OK)
-# TODO update submission endpoint
+
+
+@permission_classes([IsAuthenticated])
+@api_view(['PUT', 'PATCH'])
+def update_submission(request, trial_num):
+    """
+    update answers for a certain trial
+    :param request:
+    :param trial_num:
+    :return:
+    """
+    try:
+        trial = UserTrial.objects.get(trial_num=trial_num, user=request.user)
+        trial_answers = UserAnswer.objects.filter(trial=trial)
+        if request.method == 'PUT':
+            partial = False
+        elif request.method == 'PATCH':
+            partial = True
+        answer_serializer = AnswerSerializer(many=True, instance=trial_answers, data=request.data,
+                                             partial=partial, context={'user': request.user})
+        if answer_serializer.is_valid():
+            answer_serializer.save()
+            data = {
+                'response_id': "0",
+                'data': answer_serializer.data
+            }
+            return Response(data, status=status.HTTP_200_OK)
+        else:
+            data = {
+                'response_id': "-1",
+                'data': answer_serializer.errors
+            }
+            return Response(data, status=status.HTTP_400_BAD_REQUEST)
+    except UserTrial.DoesNotExist:
+        data = {
+            'response_id': "-1",
+            'data': 'This trial does not exist!'
+        }
+        return Response(data, status=status.HTTP_400_BAD_REQUEST)
