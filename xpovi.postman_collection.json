@@ -1,0 +1,252 @@
+{
+	"info": {
+		"_postman_id": "45a952cd-5551-41f8-9d34-f4b44ca2e4cc",
+		"name": "xpovi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "amira",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "amira123",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/token/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"token",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get_section1",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjMwNDMyNjU4LCJqdGkiOiIwNjYyZmIxYTZiODI0NTAzOTliNzE2ZDhkZGRmMmJmOCIsInVzZXJfaWQiOjF9.09JoE2K4k5LVYbKVT01ZViat6mt2vzmOwnX3Mqa1FIM",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/business-plan/section1/questions",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"business-plan",
+						"section1",
+						"questions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get_section2_questions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/business-plan/section2/questions",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"business-plan",
+						"section2",
+						"questions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "submit answers",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjMwNjg3NDY3LCJqdGkiOiJhZDMzNzUyMmZiODk0MTNjOTBkYTZiYThlNDAzMDNhMSIsInVzZXJfaWQiOjF9.pKdSC0S2vZM3FImGQtCBFX9psaWB9qF4wgyzbIPDE3I",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"question_answer\": [\n            {\n                \"id\": 8\n            }\n        ],\n        \"choices_answer\": \"both\",\n        \"int_answer\": 0\n    },\n    {\n        \"question_answer\": [\n            {\n                \"id\": 9\n            }\n        ],\n        \"choices_answer\": \"y\",\n        \"int_answer\": 0\n    },\n    {\n        \"question_answer\": [\n            {\n                \"id\": 10\n            }\n        ],\n        \"choices_answer\": \"n\",\n        \"int_answer\": 0\n    },\n    {\n        \"question_answer\": [\n            {\n                \"id\": 11\n            }\n        ],\n        \"choices_answer\": \"y\",\n        \"int_answer\": 0\n    },\n    {\n        \"question_answer\": [\n            {\n                \"id\": 12\n            }\n        ],\n        \"int_answer\": \"60000\",\n        \"choices_answer\": \"\"\n    }\n    \n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/business-plan/submission/132",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"business-plan",
+						"submission",
+						"132"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get trial num",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjMwNTMyOTI2LCJqdGkiOiIyMmM3MmQ3ZTU3NGI0OWZlYWM0OWQxY2IyYzMxNTJjOCIsInVzZXJfaWQiOjJ9.7t0uP1usXvCnM8g_a1JZeU6eV1HnaSdvy2yPPFi3pYA",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/business-plan/trial",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"business-plan",
+						"trial"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get submitted trial",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjMwNjk0Njc4LCJqdGkiOiI5MGQxNmE3MjVjYzE0YmJkYTQzNWI5N2UyYWM4ZTQ3YiIsInVzZXJfaWQiOjF9.XlYPt8f82lccvEQ-rPQO5dp2tAVOXr6paKJ0LZrOmMM",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/business-plan/answers/5",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"business-plan",
+						"answers",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update submitted trial",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjMwNjk0Njc4LCJqdGkiOiI5MGQxNmE3MjVjYzE0YmJkYTQzNWI5N2UyYWM4ZTQ3YiIsInVzZXJfaWQiOjF9.XlYPt8f82lccvEQ-rPQO5dp2tAVOXr6paKJ0LZrOmMM",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"id\": 32,\n        \"choices_answer\": \"b2b\",\n        \"int_answer\": 0,\n        \"question\": 1,\n        \"user\": 1,\n        \"trial\": 6\n    },\n    {\n        \"id\": 33,\n        \"choices_answer\": \"y\",\n        \"int_answer\": 0,\n        \"question\": 2,\n        \"user\": 1,\n        \"trial\": 6\n    },\n    {\n        \"id\": 34,\n        \"choices_answer\": \"n\",\n        \"int_answer\": 0,\n        \"question\": 3,\n        \"user\": 1,\n        \"trial\": 6\n    },\n    {\n        \"id\": 35,\n        \"choices_answer\": \"y\",\n        \"int_answer\": 0,\n        \"question\": 4,\n        \"user\": 1,\n        \"trial\": 6\n    },\n    {\n        \"id\": 36,\n        \"choices_answer\": \"\",\n        \"int_answer\": 60000,\n        \"question\": 5,\n        \"user\": 1,\n        \"trial\": 6\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/business-plan/answers/update/5",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"business-plan",
+						"answers",
+						"update",
+						"5"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
