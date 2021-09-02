@@ -25,12 +25,6 @@ class TrialSerializer(serializers.ModelSerializer):
 class AnswerSerializer(serializers.ModelSerializer):
     question_answer = QuestionSerializer(many=True, required=False)
     trial_number = TrialSerializer(many=True, required=False)
-    # answer = serializers.CharField()
-    #
-    # def validate_answer(self, value):
-    #     if value.contain(re.search("[\-0-9+]", value)):
-    #         raise serializers.ValidationError("only positive numbers")
-    #     return value
 
     class Meta:
         model = UserAnswer
@@ -46,13 +40,14 @@ class AnswerSerializer(serializers.ModelSerializer):
             new_trial = trial.first()
 
         question_answer = validated_data.pop('question_answer')
-
         for i in range(0, len(question_answer)):
             question_answer_dict = {
                 'question': Question.objects.get(id=question_answer[i]['id']),
-                'answer': validated_data.pop('answer'),
+                'choices_answer': validated_data.pop('choices_answer'),
+                'int_answer': validated_data.pop('int_answer'),
                 'trial': new_trial,
                 'user': user
             }
+            print('json ', question_answer_dict)
             user_answers = UserAnswer.objects.create(**question_answer_dict)
         return user_answers

@@ -76,6 +76,14 @@ def create_business_plan_submission(request, trial_num):
     :param request:
     :return:
     """
+    try:
+        trial_exist = UserTrial.objects.get(trial_num=trial_num, user=request.user)
+    except Exception as e:
+        print('exception=> ', e)
+        trial_exist = []
+    if trial_exist:
+        data = {"response_id": "-1", "error": "trial already exist!"}
+        return Response(data, status=status.HTTP_400_BAD_REQUEST)
     answer_serializer = AnswerSerializer(data=request.data, context={'user': request.user, 'trial_num': trial_num},
                                          many=True)
 

@@ -31,12 +31,22 @@ class UserTrial(models.Model):
 
 
 class UserAnswer(models.Model):
-    # FIXME when answer is a number validate number to be positive integer
-    # FIXME models.PositiveIntegerField(default=0, validators=[MinValueValidator(0)], blank=True, null=True)
+    CHOICES_ANSWER = [
+        ('b2c', 'B2C'),
+        ('b2b', 'B2B'),
+        ('both', 'Both'),
+        ('y', 'Yes'),
+        ('n', 'No')
+    ]
+
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name="question_answer")
-    answer = models.CharField(max_length=50, blank=True, null=True)
+    choices_answer = models.CharField(max_length=5, choices=CHOICES_ANSWER, blank=True, null=True)
+    int_answer = models.PositiveIntegerField(default=0, validators=[MinValueValidator(0)], blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_answer", null=True)
     trial = models.ForeignKey(UserTrial, on_delete=models.CASCADE, related_name="trial_number", null=True)
 
     def __str__(self):
-        return self.answer
+        return self.choices_answer + ' ' + str(self.int_answer)
+
+    # class Meta:
+    #     unique_together = ['user', 'trial']
